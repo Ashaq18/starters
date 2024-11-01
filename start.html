@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Countdown Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+    }
+    #countdown-display {
+      font-size: 2em;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Countdown Timer</h1>
+  <label for="seconds">Enter seconds:</label>
+  <input type="number" id="seconds" min="1" placeholder="Seconds">
+  <button onclick="startCountdown()">Start</button>
+  
+  <div id="countdown-display"></div>
+</div>
+
+<script>
+  let countdown;
+  
+  function startCountdown() {
+    clearInterval(countdown);  // Clear any previous countdowns
+    const secondsInput = document.getElementById("seconds").value;
+    let timeLeft = parseInt(secondsInput);
+
+    if (isNaN(timeLeft) || timeLeft <= 0) {
+      document.getElementById("countdown-display").innerText = "Please enter a valid number.";
+      return;
+    }
+
+    document.getElementById("countdown-display").innerText = timeLeft;
+
+    countdown = setInterval(() => {
+      timeLeft--;
+      document.getElementById("countdown-display").innerText = timeLeft > 0 ? timeLeft : "Time's up!";
+      
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+      }
+    }, 1000);
+  }
+</script>
+
+</body>
+</html>
